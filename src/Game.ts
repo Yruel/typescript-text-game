@@ -4,10 +4,8 @@ import {Map} from "./Map";
 import {readFileSync, writeFileSync} from "fs";
 import {SaveObject} from "./save-object";
 import path from "path";
-
-
-
-
+import {Item} from "./Item";
+import {Sword} from "./Sword";
 
 export class Game {
 
@@ -25,6 +23,12 @@ export class Game {
             console.log('Welcome back adventurer');
             this.player.posX = this.saveObject.player.posX;
             this.player.posY = this.saveObject.player.posY;
+            for (const itemString of this.saveObject.inventory) {
+                switch (itemString) {
+                    case 'Sword':
+                        this.player.inventory.push(new Sword());
+                }
+            }
         }
     }
 
@@ -81,11 +85,17 @@ export class Game {
                     });
                     break;
                 case 'Show the inventory':
-                    console.log('inventory');
+                    console.log('Your inventory contains:');
+                    for (const item of this.player.inventory) {
+                        console.log(item.name);
+                    }
                     this.run();
                     break;
-                case 'End the game':
+                case 'Save and end the game':
                     Object.assign(this.saveObject, {player: {posX: this.player.posX, posY: this.player.posY}});
+                    for (const item of this.player.inventory) {
+                        this.saveObject.inventory.push(item.name);
+                    }
                     const saveString = JSON.stringify(this.saveObject);
                     writeFileSync(path.resolve(__dirname, '../game.json'), saveString);
                     break;
