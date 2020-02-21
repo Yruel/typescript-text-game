@@ -1,0 +1,22 @@
+{
+  "name": "text-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "tsc && node dist/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^13.7.4",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "@types/inquirer": "^6.5.0",
+    "inquirer": "^7.0.4"
+  }
+}
